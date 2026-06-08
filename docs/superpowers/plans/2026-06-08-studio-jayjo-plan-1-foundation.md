@@ -504,8 +504,9 @@ export default [
       "no-restricted-syntax": [
         "error",
         {
+          // `import.meta` is a MetaProperty, not a MemberExpression — a naive selector silently no-ops.
           selector:
-            "MemberExpression[object.object.name='import'][object.property.name='meta'][property.name=/^(?!VITE_).+/]",
+            "MemberExpression[object.type='MemberExpression'][object.object.type='MetaProperty'][object.object.meta.name='import'][object.object.property.name='meta'][object.property.name='env'][property.name=/^(?!VITE_).+/]",
           message:
             "Only VITE_-prefixed env vars may be accessed from src/. Server keys live in netlify/functions/_lib/env.ts.",
         },
