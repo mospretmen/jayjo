@@ -580,43 +580,49 @@ git commit -m "chore: add tailwind, postcss, eslint, prettier configs"
 - [ ] **Step 3.1: Create `src/styles/tokens.css`**
 
 ```css
+:root {
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+:root,
 :root[data-theme="light"] {
   --color-bg:           #F2EBDC; /* Soft Parchment */
   --color-bg-elevated:  #E8E2D3; /* Bone */
-  --color-text:         #2E1F12; /* Cocoa/Walnut */
-  --color-text-muted:   #A89A86; /* Warm Greige */
+  --color-text:         #2E1F12; /* Cocoa / Walnut */
+  --color-text-muted:   #756751; /* Warm Greige — AA on bg (4.64:1) */
   --color-accent:       #A6541F; /* Cognac Leather */
   --color-accent-soft:  #B57C82; /* Faded Fig */
-  --color-fig:          #63242B; /* Deep Fig */
+  --color-fig:          #63242B; /* Deep Fig — also used as danger/error tone */
   --color-olive:        #7E9268; /* Olive Moss */
   --color-mustard:      #C97B10; /* Spiced Mustard */
   --color-burnt:        #8D3A2B; /* Burnt Umber */
   --color-border:       rgba(46, 31, 18, 0.12);
 
+  --color-shimmer:      rgba(46, 31, 18, 0.08);  /* warm shimmer over light bg */
+
   --shadow-card:        0 1px 2px rgba(46, 31, 18, 0.06), 0 8px 24px rgba(46, 31, 18, 0.08);
   --shadow-card-hover:  0 4px 8px rgba(46, 31, 18, 0.10), 0 16px 36px rgba(46, 31, 18, 0.14);
-
-  --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 16px;
-
-  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
 
   color-scheme: light;
 }
 
 :root[data-theme="dark"] {
-  --color-bg:           #1A140E;
+  --color-bg:           #1A140E;          /* deep warm brown — never true black */
   --color-bg-elevated:  #241A12;
-  --color-text:         #F2EBDC;
-  --color-text-muted:   #A89A86;
-  --color-accent:       #C77A3E;
-  --color-accent-soft:  #B57C82;
+  --color-text:         #F2EBDC;          /* Soft Parchment becomes text in dark */
+  --color-text-muted:   #C9BFA8;          /* lifted from #A89A86 for AA on dark */
+  --color-accent:       #C77A3E;          /* Cognac lifted for dark-bg contrast */
+  --color-accent-soft:  #C68C92;          /* Faded Fig, slightly lifted */
   --color-fig:          #8C3A41;
   --color-olive:        #9DB387;
   --color-mustard:      #E08B1F;
   --color-burnt:        #B45844;
   --color-border:       rgba(242, 235, 220, 0.12);
+
+  --color-shimmer:      rgba(242, 235, 220, 0.08);
 
   --shadow-card:        0 1px 2px rgba(0, 0, 0, 0.4), 0 8px 24px rgba(0, 0, 0, 0.4);
   --shadow-card-hover:  0 4px 8px rgba(0, 0, 0, 0.5), 0 16px 36px rgba(0, 0, 0, 0.5);
@@ -624,6 +630,8 @@ git commit -m "chore: add tailwind, postcss, eslint, prettier configs"
   color-scheme: dark;
 }
 ```
+
+Note: theme-independent tokens (`--radius-*`, `--ease-out`) live in the base `:root` block so they survive in dark mode. Light theme is the implicit default via the `,` combinator — even if `<html>` has no `data-theme` attribute, styles still apply.
 
 - [ ] **Step 3.2: Create `src/styles/base.css`**
 
@@ -725,7 +733,7 @@ img {
     background-image: linear-gradient(
       90deg,
       transparent 0%,
-      rgba(255, 255, 255, 0.05) 50%,
+      var(--color-shimmer) 50%,
       transparent 100%
     );
     background-size: 200% 100%;
@@ -891,14 +899,14 @@ const LIGHT = {
   bg: "#F2EBDC",
   bgElevated: "#E8E2D3",
   text: "#2E1F12",
-  textMuted: "#A89A86",
+  textMuted: "#756751",
   accent: "#A6541F",
 };
 const DARK = {
   bg: "#1A140E",
   bgElevated: "#241A12",
   text: "#F2EBDC",
-  textMuted: "#A89A86",
+  textMuted: "#C9BFA8",
   accent: "#C77A3E",
 };
 
@@ -908,6 +916,8 @@ describe("token contrast (WCAG 2.2 AA)", () => {
     ["light text on elevated", LIGHT.text, LIGHT.bgElevated, 4.5],
     ["dark text on bg", DARK.text, DARK.bg, 4.5],
     ["dark text on elevated", DARK.text, DARK.bgElevated, 4.5],
+    ["light muted on bg", LIGHT.textMuted, LIGHT.bg, 4.5],
+    ["dark muted on bg", DARK.textMuted, DARK.bg, 4.5],
   ])("%s meets %s:1", (_, fg, bg, min) => {
     expect(hex(fg, bg)).toBeGreaterThanOrEqual(min as number);
   });
@@ -919,7 +929,7 @@ describe("token contrast (WCAG 2.2 AA)", () => {
 Run: `npm test -- tests/unit/tokens-contrast.test.ts`
 Expected: PASS.
 
-> **Note:** If a row fails, adjust the affected token in `src/styles/tokens.css` AND in this test file (they must stay in sync). Muted text + accent on backgrounds is informational and not asserted at AA here — they're for decorative use.
+> **Note:** If a row fails, adjust the affected token in `src/styles/tokens.css` AND in this test file (they must stay in sync). Muted text is asserted at AA on both themes (it's used at 12px in `.eyebrow`); accent on backgrounds is informational and not asserted at AA here — it's for decorative use.
 
 - [ ] **Step 5.3: Commit**
 

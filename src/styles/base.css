@@ -11,6 +11,7 @@ body {
   background: var(--color-bg);
   color: var(--color-text);
   font-family: "Inter Variable", ui-sans-serif, system-ui, sans-serif;
+  /* Inter OpenType: alt single-story 'a' (ss01), straight-tail 'l' (cv11) */
   font-feature-settings: "ss01", "cv11";
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
