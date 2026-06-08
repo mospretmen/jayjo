@@ -416,6 +416,7 @@ import type { Config } from "tailwindcss";
 
 export default {
   content: ["./index.html", "./src/**/*.{ts,tsx}"],
+  darkMode: ['selector', '[data-theme="dark"]'],
   theme: {
     extend: {
       colors: {
@@ -473,6 +474,7 @@ import react from "eslint-plugin-react";
 import reactHooks from "eslint-plugin-react-hooks";
 
 export default [
+  { ignores: ["dist/**", "coverage/**", "playwright-report/**", "test-results/**", "*.tsbuildinfo"] },
   js.configs.recommended,
   {
     files: ["src/**/*.{ts,tsx}", "tests/**/*.{ts,tsx}"],
@@ -504,11 +506,34 @@ export default [
       "no-restricted-syntax": [
         "error",
         {
-          // `import.meta` is a MetaProperty, not a MemberExpression — a naive selector silently no-ops.
+          // Block import.meta.env.NON_VITE_FOO (dotted access).
+          //
+          // AST shape:
+          //   - import.meta              -> MetaProperty { meta.name: 'import', property.name: 'meta' }
+          //   - import.meta.env          -> MemberExpression wrapping the MetaProperty
+          //   - import.meta.env.FOO      -> outer MemberExpression
+          //
+          // import.meta is a MetaProperty, NOT a chained MemberExpression — a naive
+          // selector silently no-ops.
           selector:
             "MemberExpression[object.type='MemberExpression'][object.object.type='MetaProperty'][object.object.meta.name='import'][object.object.property.name='meta'][object.property.name='env'][property.name=/^(?!VITE_).+/]",
           message:
             "Only VITE_-prefixed env vars may be accessed from src/. Server keys live in netlify/functions/_lib/env.ts.",
+        },
+        {
+          // Block import.meta.env["NON_VITE_FOO"] (bracket access — same leak path).
+          selector:
+            "MemberExpression[computed=true][object.type='MemberExpression'][object.object.type='MetaProperty'][object.object.meta.name='import'][object.object.property.name='meta'][object.property.name='env'][property.value=/^(?!VITE_).+/]",
+          message:
+            "Bracket access to import.meta.env still leaks server secrets. Use a VITE_-prefixed key, or go through netlify/functions/_lib/env.ts on the server.",
+        },
+        {
+          // Block destructuring import.meta.env entirely. Distinguishing safe vs unsafe
+          // destructure requires per-property regex which is brittle; ban the pattern.
+          selector:
+            "VariableDeclarator[init.type='MemberExpression'][init.object.type='MetaProperty'][init.object.meta.name='import'][init.object.property.name='meta'][init.property.name='env'] > ObjectPattern",
+          message:
+            "Destructuring import.meta.env defeats the VITE_ allowlist. Access individual VITE_-prefixed properties one at a time.",
         },
       ],
     },
@@ -527,6 +552,7 @@ module.exports = {
   printWidth: 100,
   tabWidth: 2,
   plugins: ["prettier-plugin-tailwindcss"],
+  tailwindConfig: "./tailwind.config.ts",
 };
 ```
 
