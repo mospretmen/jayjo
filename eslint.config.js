@@ -8,6 +8,29 @@ export default [
   { ignores: ["dist/**", "coverage/**", "playwright-report/**", "test-results/**", "*.tsbuildinfo"] },
   js.configs.recommended,
   {
+    files: ["vite.config.js", "vitest.config.js"],
+    languageOptions: {
+      ecmaVersion: 2023,
+      sourceType: "module",
+      globals: {
+        __dirname: "readonly",
+        __filename: "readonly",
+      },
+    },
+  },
+  {
+    files: ["tests/**/*.{js,ts,tsx}"],
+    languageOptions: {
+      ecmaVersion: 2023,
+      sourceType: "module",
+      globals: {
+        localStorage: "readonly",
+        sessionStorage: "readonly",
+        console: "readonly",
+      },
+    },
+  },
+  {
     files: ["src/**/*.{ts,tsx}", "tests/**/*.{ts,tsx}"],
     languageOptions: {
       parser: tsParser,
