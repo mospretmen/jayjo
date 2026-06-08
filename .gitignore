@@ -14,3 +14,10 @@ test-results
 /db/local.db
 .claude/
 *.tsbuildinfo
+.vscode/
+.idea/
+dist-ssr/
+
+# Design reference materials (kept locally only)
+/Colour Palette.pdf
+/Website_Concept_01.pdf

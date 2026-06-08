@@ -185,6 +185,13 @@ test-results
 *.log
 /tmp/
 /db/local.db
+.vscode/
+.idea/
+dist-ssr/
+
+# Design reference materials (kept locally only)
+/Colour Palette.pdf
+/Website_Concept_01.pdf
 ```
 
 - [ ] **Step 1.4: Create `.env.example`** (placeholder names only — never values)
@@ -271,7 +278,7 @@ VITE_PLAUSIBLE_DOMAIN=
     "tsx": "^4.19.2",
     "typescript": "^5.7.2",
     "vite": "^6.0.5",
-    "vitest": "^2.1.8",
+    "vitest": "^3.2.6",
     "wcag-contrast": "^3.0.0"
   }
 }
@@ -375,6 +382,11 @@ export default defineConfig({
 Run: `npm install`
 Expected: clean install, no peer-dep errors.
 
+- [ ] **Step 1.10b: Verify no critical vulnerabilities**
+
+Run: `npm audit --audit-level=critical`
+Expected: no critical vulnerabilities.
+
 - [ ] **Step 1.11: Verify TypeScript builds**
 
 Run: `npm run typecheck`
@@ -383,7 +395,7 @@ Expected: PASS with no errors (no source files yet, so trivially passes once `sr
 - [ ] **Step 1.12: Initial commit**
 
 ```bash
-git add .
+git add .gitignore .nvmrc .env.example package.json package-lock.json tsconfig.json tsconfig.node.json vite.config.ts index.html docs/
 git commit -m "chore: initialize project tooling and dependencies"
 ```
 
