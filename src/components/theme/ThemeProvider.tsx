@@ -2,19 +2,23 @@ import { useEffect, type ReactNode } from "react";
 import { useThemeStore } from "@/store/theme";
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const { theme, hasUserChoice, setTheme } = useThemeStore();
+  const { theme, hasUserChoice } = useThemeStore();
 
   useEffect(() => {
+    const mql = window.matchMedia("(prefers-color-scheme: dark)");
+
+    const apply = () => {
+      const effective = hasUserChoice ? theme : mql.matches ? "dark" : "light";
+      document.documentElement.setAttribute("data-theme", effective);
+    };
+
+    apply();
+
     if (!hasUserChoice) {
-      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-      if (prefersDark) {
-        document.documentElement.setAttribute("data-theme", "dark");
-        useThemeStore.setState({ theme: "dark", hasUserChoice: false });
-        return;
-      }
+      mql.addEventListener("change", apply);
+      return () => mql.removeEventListener("change", apply);
     }
-    document.documentElement.setAttribute("data-theme", theme);
-  }, [theme, hasUserChoice, setTheme]);
+  }, [theme, hasUserChoice]);
 
   return <>{children}</>;
 }

@@ -364,6 +364,19 @@ export default defineConfig({
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#F2EBDC" />
+    <script>
+      (function () {
+        try {
+          var raw = localStorage.getItem("studio-jayjo-theme");
+          var persisted = raw ? JSON.parse(raw) : null;
+          var chosen = persisted && persisted.state && persisted.state.hasUserChoice ? persisted.state.theme : null;
+          var theme = chosen || (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+          document.documentElement.setAttribute("data-theme", theme);
+        } catch (_) {
+          document.documentElement.setAttribute("data-theme", "light");
+        }
+      })();
+    </script>
     <title>Studio JayJo</title>
     <meta name="description" content="Studio JayJo — original art, prints, and curated wall galleries." />
     <meta property="og:title" content="Studio JayJo" />
@@ -768,7 +781,7 @@ git commit -m "feat: add design tokens for light + dark themes with brand palett
 ```ts
 // tests/unit/theme-store.test.ts
 import { describe, it, expect, beforeEach } from "vitest";
-import { useThemeStore } from "@/store/theme";
+import { useThemeStore, THEME_STORAGE_KEY } from "@/store/theme";
 
 describe("theme store", () => {
   beforeEach(() => {
@@ -783,6 +796,22 @@ describe("theme store", () => {
   it("toggles to dark and records user choice", () => {
     useThemeStore.getState().setTheme("dark");
     expect(useThemeStore.getState().theme).toBe("dark");
+    expect(useThemeStore.getState().hasUserChoice).toBe(true);
+  });
+
+  it("persists to localStorage", () => {
+    useThemeStore.getState().setTheme("dark");
+    const raw = localStorage.getItem(THEME_STORAGE_KEY);
+    expect(raw).toBeTruthy();
+    expect(raw).toContain('"theme":"dark"');
+  });
+
+  it("toggle() round-trips light→dark→light", () => {
+    const { toggle } = useThemeStore.getState();
+    toggle();
+    expect(useThemeStore.getState().theme).toBe("dark");
+    toggle();
+    expect(useThemeStore.getState().theme).toBe("light");
     expect(useThemeStore.getState().hasUserChoice).toBe(true);
   });
 });
@@ -801,6 +830,8 @@ import { persist } from "zustand/middleware";
 
 export type Theme = "light" | "dark";
 
+export const THEME_STORAGE_KEY = "studio-jayjo-theme";
+
 interface ThemeState {
   theme: Theme;
   hasUserChoice: boolean;
@@ -810,13 +841,17 @@ interface ThemeState {
 
 export const useThemeStore = create<ThemeState>()(
   persist(
-    (set, get) => ({
+    (set) => ({
       theme: "light",
       hasUserChoice: false,
       setTheme: (t) => set({ theme: t, hasUserChoice: true }),
-      toggle: () => set({ theme: get().theme === "light" ? "dark" : "light", hasUserChoice: true }),
+      toggle: () =>
+        set((s) => ({
+          theme: s.theme === "light" ? "dark" : "light",
+          hasUserChoice: true,
+        })),
     }),
-    { name: "studio-jayjo-theme" },
+    { name: THEME_STORAGE_KEY },
   ),
 );
 ```
@@ -829,23 +864,27 @@ Expected: PASS.
 - [ ] **Step 4.5: Create `src/components/theme/ThemeProvider.tsx`** — applies `data-theme` to `<html>`; only consults `prefers-color-scheme` if user has not chosen.
 
 ```tsx
-import { useEffect } from "react";
+import { useEffect, type ReactNode } from "react";
 import { useThemeStore } from "@/store/theme";
 
-export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  const { theme, hasUserChoice, setTheme } = useThemeStore();
+export function ThemeProvider({ children }: { children: ReactNode }) {
+  const { theme, hasUserChoice } = useThemeStore();
 
   useEffect(() => {
+    const mql = window.matchMedia("(prefers-color-scheme: dark)");
+
+    const apply = () => {
+      const effective = hasUserChoice ? theme : mql.matches ? "dark" : "light";
+      document.documentElement.setAttribute("data-theme", effective);
+    };
+
+    apply();
+
     if (!hasUserChoice) {
-      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-      if (prefersDark) {
-        document.documentElement.setAttribute("data-theme", "dark");
-        useThemeStore.setState({ theme: "dark", hasUserChoice: false });
-        return;
-      }
+      mql.addEventListener("change", apply);
+      return () => mql.removeEventListener("change", apply);
     }
-    document.documentElement.setAttribute("data-theme", theme);
-  }, [theme, hasUserChoice, setTheme]);
+  }, [theme, hasUserChoice]);
 
   return <>{children}</>;
 }

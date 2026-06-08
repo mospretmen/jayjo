@@ -5,6 +5,19 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#F2EBDC" />
+    <script>
+      (function () {
+        try {
+          var raw = localStorage.getItem("studio-jayjo-theme");
+          var persisted = raw ? JSON.parse(raw) : null;
+          var chosen = persisted && persisted.state && persisted.state.hasUserChoice ? persisted.state.theme : null;
+          var theme = chosen || (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+          document.documentElement.setAttribute("data-theme", theme);
+        } catch (_) {
+          document.documentElement.setAttribute("data-theme", "light");
+        }
+      })();
+    </script>
     <title>Studio JayJo</title>
     <meta name="description" content="Studio JayJo — original art, prints, and curated wall galleries." />
     <meta property="og:title" content="Studio JayJo" />

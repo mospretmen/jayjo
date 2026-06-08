@@ -3,6 +3,8 @@ import { persist } from "zustand/middleware";
 
 export type Theme = "light" | "dark";
 
+export const THEME_STORAGE_KEY = "studio-jayjo-theme";
+
 interface ThemeState {
   theme: Theme;
   hasUserChoice: boolean;
@@ -12,12 +14,16 @@ interface ThemeState {
 
 export const useThemeStore = create<ThemeState>()(
   persist(
-    (set, get) => ({
+    (set) => ({
       theme: "light",
       hasUserChoice: false,
       setTheme: (t) => set({ theme: t, hasUserChoice: true }),
-      toggle: () => set({ theme: get().theme === "light" ? "dark" : "light", hasUserChoice: true }),
+      toggle: () =>
+        set((s) => ({
+          theme: s.theme === "light" ? "dark" : "light",
+          hasUserChoice: true,
+        })),
     }),
-    { name: "studio-jayjo-theme" },
+    { name: THEME_STORAGE_KEY },
   ),
 );
