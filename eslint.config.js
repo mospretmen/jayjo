@@ -27,6 +27,7 @@ export default [
         clearInterval: "readonly",
         React: "readonly",
         JSX: "readonly",
+        FormData: "readonly",
         HTMLElement: "readonly",
         HTMLButtonElement: "readonly",
         HTMLInputElement: "readonly",
