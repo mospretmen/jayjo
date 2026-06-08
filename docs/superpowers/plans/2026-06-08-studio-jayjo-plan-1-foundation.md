@@ -1245,7 +1245,7 @@ function matches(a: Artwork, f: ArtworkFilter): boolean {
   }
   if (f.priceMin !== undefined && Math.min(...a.variants.map((v) => v.priceCents)) < f.priceMin)
     return false;
-  if (f.priceMax !== undefined && Math.min(...a.variants.map((v) => v.priceCents)) > f.priceMax)
+  if (f.priceMax !== undefined && Math.max(...a.variants.map((v) => v.priceCents)) > f.priceMax)
     return false;
   return true;
 }
