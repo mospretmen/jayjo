@@ -58,13 +58,7 @@ export default function ArtworkDetail() {
     <Section>
       <div className="grid gap-12 md:grid-cols-2">
         <Reveal>
-          <ImageWithBlur
-            src={main.src}
-            alt={main.alt}
-            aspect={main.aspect}
-            priority
-            className="rounded-lg"
-          />
+          <ImageWithBlur src={main.src} alt={main.alt} aspect={main.aspect} priority />
           {artwork.images.slice(1).length > 0 && (
             <div className="mt-4 grid grid-cols-3 gap-2">
               {artwork.images.slice(1).map((img, i) => (
@@ -73,7 +67,6 @@ export default function ArtworkDetail() {
                   src={img.src}
                   alt={img.alt}
                   aspect={img.aspect}
-                  className="rounded"
                 />
               ))}
             </div>

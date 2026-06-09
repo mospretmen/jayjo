@@ -9,15 +9,13 @@ export default function About() {
         {/* Editorial spread image — landscape, capped under the viewport */}
         <Reveal>
           <figure className="space-y-2">
-            <div className="overflow-hidden rounded-lg">
-              <img
-                src="/hero/featured-arrangement.jpg"
-                alt="An arrangement from the Warm Study series"
-                loading="eager"
-                decoding="async"
-                className="block aspect-[4/3] w-full object-cover md:aspect-[3/4] md:max-h-[68vh]"
-              />
-            </div>
+            <img
+              src="/hero/featured-arrangement.jpg"
+              alt="An arrangement from the Warm Study series"
+              loading="eager"
+              decoding="async"
+              className="block aspect-[4/3] w-full object-cover md:aspect-[3/4] md:max-h-[68vh]"
+            />
             <figcaption className="text-xs text-text-muted">
               Warm Study, photographed in the studio.
             </figcaption>

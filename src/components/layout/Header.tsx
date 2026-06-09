@@ -3,7 +3,6 @@ import { Link, NavLink, useLocation } from "react-router-dom";
 import { Heart, ShoppingBag } from "lucide-react";
 import { ThemeToggle } from "@/components/theme/ThemeToggle";
 import { MobileNav } from "@/components/layout/MobileNav";
-import { BrandLogo } from "@/components/layout/BrandLogo";
 import { useFavorites } from "@/store/favorites";
 import { cn } from "@/lib/cn";
 
@@ -42,10 +41,12 @@ export function Header() {
       <div className="container-page flex h-16 items-center justify-between gap-6">
         <Link
           to="/"
-          aria-label="Studio JayJo — home"
-          className="-mx-1 inline-flex items-center rounded-md px-1 py-1 outline-none focus-visible:ring-2 focus-visible:ring-accent"
+          className={cn(
+            "font-display text-xl tracking-tight transition-colors",
+            transparent ? "text-bg" : "text-text",
+          )}
         >
-          <BrandLogo sizeClass="h-10 w-10" />
+          Studio JayJo
         </Link>
         <nav aria-label="Primary" className="hidden gap-6 md:flex">
           {nav.map((n) => (

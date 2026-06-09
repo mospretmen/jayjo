@@ -39,8 +39,13 @@ export function Footer() {
     <footer className="border-t border-border bg-bg-elevated">
       <div className="container-page grid grid-cols-1 gap-12 py-16 md:grid-cols-[2fr_1fr_1fr_1fr]">
         <div className="space-y-4">
-          <Link to="/" aria-label="Studio JayJo — home" className="inline-flex items-center">
+          <Link
+            to="/"
+            aria-label="Studio JayJo — home"
+            className="inline-flex items-center gap-3"
+          >
             <BrandLogo sizeClass="h-12 w-12" />
+            <span className="font-display text-2xl tracking-tight text-text">Studio JayJo</span>
           </Link>
           <p className="max-w-prose text-text-muted">
             Original art, prints, and curated wall galleries — made in warm pigments and quiet

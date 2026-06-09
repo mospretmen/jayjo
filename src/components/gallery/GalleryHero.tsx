@@ -5,17 +5,16 @@ import { EyebrowHeading } from "@/components/ui/EyebrowHeading";
 
 export function GalleryHero({ gallery }: { gallery: Gallery }) {
   return (
-    <section className="container-page py-12">
+    <section className="container-page py-6 md:py-10">
       <Parallax intensity="subtle">
         <ImageWithBlur
           src={gallery.heroImage.src}
           alt={gallery.heroImage.alt}
           aspect={gallery.heroImage.aspect}
           priority
-          className="rounded-lg"
         />
       </Parallax>
-      <div className="mt-10 max-w-prose">
+      <div className="mt-8 max-w-prose">
         <EyebrowHeading eyebrow="Wall Gallery" title={gallery.title} description={gallery.description} level={1} />
       </div>
     </section>
