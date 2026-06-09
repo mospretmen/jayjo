@@ -90,7 +90,9 @@ export default function ArtworkDetail() {
           <div className="mt-10 space-y-4">
             <VariantPicker artwork={artwork} />
             <div className="flex gap-3">
-              <Button size="lg">Add to cart</Button>
+              <Button size="lg" disabled aria-disabled title="Cart launches with Plan 2">
+                Add to cart
+              </Button>
               <button
                 type="button"
                 onClick={() => toggle(artwork.slug)}

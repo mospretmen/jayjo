@@ -40,7 +40,9 @@ export default function GalleryDetail() {
           {gallery.bundle && (
             <div className="flex items-center gap-4">
               <Price cents={gallery.bundle.bundlePriceCents} className="font-display text-2xl" />
-              <Button>Buy the whole gallery</Button>
+              <Button disabled aria-disabled title="Bundle checkout launches with Plan 2">
+                Buy the whole gallery
+              </Button>
             </div>
           )}
         </div>
