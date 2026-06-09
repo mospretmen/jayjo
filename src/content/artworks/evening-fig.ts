@@ -12,7 +12,7 @@ export const artwork: Artwork = {
     "Painted at the close of a long summer. The fig sat on a parchment-coloured cloth for a week before I touched a brush.",
   colorTags: ["deep-fig", "cognac"],
   sizeTags: ["small", "medium", "large"],
-  images: [{ src: "/art/evening-fig/main.jpg", alt: "Evening Fig — fig and cognac still-life", aspect: 4 / 5 }],
+  images: [{ src: "/art/evening-fig/main.jpg", alt: "Evening Fig — fig and cognac still-life", aspect: 3 / 4 }],
   variants: [
     { id: "a4", label: "A4 (8×11 in)", priceCents: 8500, stripePriceId: "price_placeholder_ef_a4" },
     { id: "a3", label: "A3 (11×16 in)", priceCents: 14500, stripePriceId: "price_placeholder_ef_a3" },

@@ -29,7 +29,7 @@ export default function ArtworkDetail() {
     return (
       <Section>
         <div className="grid gap-12 md:grid-cols-2">
-          <Skeleton className="aspect-[4/5] w-full" delayMs={0} />
+          <Skeleton className="aspect-[3/4] w-full" delayMs={0} />
           <div className="space-y-4">
             <Skeleton className="h-10 w-2/3" delayMs={0} />
             <Skeleton className="h-5 w-1/3" delayMs={0} />

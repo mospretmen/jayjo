@@ -1,12 +1,12 @@
 import { Link } from "react-router-dom";
-import { Instagram } from "lucide-react";
+import { Instagram, X as XIcon } from "lucide-react";
 import { Input } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
 import { toast } from "sonner";
 
 export function Footer() {
   return (
-    <footer className="mt-20 border-t border-border bg-bg-elevated">
+    <footer className="border-t border-border bg-bg-elevated">
       <div className="container-page grid grid-cols-1 gap-12 py-16 md:grid-cols-[2fr_1fr_1fr_1fr]">
         <div className="space-y-4">
           <p className="font-display text-2xl text-text">Studio JayJo</p>
@@ -63,8 +63,8 @@ export function Footer() {
               </a>
             </li>
             <li>
-              <a href="https://tiktok.com/@studiojayjo" target="_blank" rel="noreferrer" className="hover:text-text">
-                TikTok
+              <a href="https://x.com/studiojayjo" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 hover:text-text">
+                <XIcon size={14} /> X
               </a>
             </li>
           </ul>

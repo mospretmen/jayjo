@@ -10,7 +10,7 @@ export const artwork: Artwork = {
     "A late-afternoon olive grove rendered in moss and warm greige. A single, framed original.",
   colorTags: ["olive-moss", "warm-greige"],
   sizeTags: ["large"],
-  images: [{ src: "/art/olive-grove/main.jpg", alt: "Olive Grove — olive trees in afternoon light", aspect: 4 / 5 }],
+  images: [{ src: "/art/olive-grove/main.jpg", alt: "Olive Grove — olive trees in afternoon light", aspect: 3 / 4 }],
   variants: [
     {
       id: "original",

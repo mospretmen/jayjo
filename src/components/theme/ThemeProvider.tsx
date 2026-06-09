@@ -5,19 +5,11 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
   const { theme, hasUserChoice } = useThemeStore();
 
   useEffect(() => {
-    const mql = window.matchMedia("(prefers-color-scheme: dark)");
-
-    const apply = () => {
-      const effective = hasUserChoice ? theme : mql.matches ? "dark" : "light";
-      document.documentElement.setAttribute("data-theme", effective);
-    };
-
-    apply();
-
-    if (!hasUserChoice) {
-      mql.addEventListener("change", apply);
-      return () => mql.removeEventListener("change", apply);
-    }
+    // Always default to light. Only an explicit user toggle (via ThemeToggle)
+    // promotes hasUserChoice to true and applies the persisted theme. System
+    // preference is intentionally ignored — per product brief, default is light.
+    const effective = hasUserChoice ? theme : "light";
+    document.documentElement.setAttribute("data-theme", effective);
   }, [theme, hasUserChoice]);
 
   return <>{children}</>;

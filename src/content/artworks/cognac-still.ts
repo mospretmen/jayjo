@@ -9,7 +9,7 @@ export const artwork: Artwork = {
   description: "Warm cognac leather, walnut shadows, and a single bone-coloured bowl.",
   colorTags: ["cognac", "walnut"],
   sizeTags: ["small", "medium"],
-  images: [{ src: "/art/cognac-still/main.jpg", alt: "Cognac Still — warm leather still-life", aspect: 4 / 5 }],
+  images: [{ src: "/art/cognac-still/main.jpg", alt: "Cognac Still — warm leather still-life", aspect: 3 / 4 }],
   variants: [
     { id: "a4", label: "A4 (8×11 in)", priceCents: 8500, stripePriceId: "price_placeholder_cs_a4" },
     { id: "a3", label: "A3 (11×16 in)", priceCents: 14500, stripePriceId: "price_placeholder_cs_a3" },

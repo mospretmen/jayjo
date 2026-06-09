@@ -7,7 +7,7 @@ export function PageSkeleton() {
       <Skeleton className="mb-10 h-12 w-2/3" />
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {Array.from({ length: 6 }).map((_, i) => (
-          <Skeleton key={i} className="aspect-[4/5] w-full" />
+          <Skeleton key={i} className="aspect-[3/4] w-full" />
         ))}
       </div>
     </div>

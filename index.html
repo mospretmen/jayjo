@@ -7,13 +7,13 @@
     <meta name="theme-color" media="(prefers-color-scheme: light)" content="#F2EBDC" />
     <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#1A140E" />
     <script>
+      // Default to light — only honor explicit user choice. System pref is ignored on first visit.
       (function () {
         try {
           var raw = localStorage.getItem("studio-jayjo-theme");
           var persisted = raw ? JSON.parse(raw) : null;
-          var chosen = persisted && persisted.state && persisted.state.hasUserChoice ? persisted.state.theme : null;
-          var theme = chosen || (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
-          document.documentElement.setAttribute("data-theme", theme);
+          var chosen = persisted && persisted.state && persisted.state.hasUserChoice ? persisted.state.theme : "light";
+          document.documentElement.setAttribute("data-theme", chosen);
         } catch (_) {
           document.documentElement.setAttribute("data-theme", "light");
         }
