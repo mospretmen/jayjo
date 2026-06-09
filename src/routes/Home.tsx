@@ -72,15 +72,21 @@ export default function Home() {
         </div>
       </section>
 
-      {/* SHOP BY pill row */}
+      {/* SHOP BY pill row — single row, scrolls horizontally on mobile if needed */}
       <section className="border-b border-border bg-bg-elevated">
-        <div className="container-page flex flex-wrap items-center gap-3 py-6">
-          <p className="eyebrow mr-2">Shop by</p>
+        <div
+          className="flex items-center gap-3 overflow-x-auto py-5 sm:flex-wrap sm:overflow-visible sm:py-6 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          style={{
+            paddingLeft: "max(1.5rem, calc((100vw - 80rem) / 2 + 1.5rem))",
+            paddingRight: "max(1.5rem, calc((100vw - 80rem) / 2 + 1.5rem))",
+          }}
+        >
+          <p className="eyebrow mr-1 shrink-0">Shop by</p>
           {SHOP_BY.map((s) => (
             <Link
               key={s.href}
               to={s.href}
-              className="inline-flex items-center rounded-full border border-border bg-bg px-4 py-2 text-sm text-text outline-none transition hover:bg-accent hover:text-bg focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
+              className="inline-flex shrink-0 items-center whitespace-nowrap rounded-full border border-border bg-bg px-4 py-2 text-sm text-text outline-none transition hover:bg-accent hover:text-bg focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
             >
               {s.label}
             </Link>
