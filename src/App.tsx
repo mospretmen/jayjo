@@ -13,6 +13,9 @@ const GalleryDetail = lazy(() => import("@/routes/GalleryDetail"));
 const Favorites = lazy(() => import("@/routes/Favorites"));
 const About = lazy(() => import("@/routes/About"));
 const WorkWithUs = lazy(() => import("@/routes/WorkWithUs"));
+const Cart = lazy(() => import("@/routes/Cart"));
+const CheckoutSuccess = lazy(() => import("@/routes/CheckoutSuccess"));
+const CheckoutCancel = lazy(() => import("@/routes/CheckoutCancel"));
 const NotFound = lazy(() => import("@/routes/NotFound"));
 
 function wrap(Component: ComponentType) {
@@ -37,7 +40,9 @@ const router = createBrowserRouter([
       { path: "/favorites", element: wrap(Favorites) },
       { path: "/about", element: wrap(About) },
       { path: "/work-with-us", element: wrap(WorkWithUs) },
-      { path: "/cart", element: wrap(NotFound) /* wired in Plan 2 */ },
+      { path: "/cart", element: wrap(Cart) },
+      { path: "/checkout/success", element: wrap(CheckoutSuccess) },
+      { path: "/checkout/cancel", element: wrap(CheckoutCancel) },
       { path: "*", element: wrap(NotFound) },
     ],
   },
