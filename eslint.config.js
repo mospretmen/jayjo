@@ -5,7 +5,7 @@ import react from "eslint-plugin-react";
 import reactHooks from "eslint-plugin-react-hooks";
 
 export default [
-  { ignores: ["dist/**", "coverage/**", "playwright-report/**", "test-results/**", "*.tsbuildinfo"] },
+  { ignores: ["dist/**", "coverage/**", "playwright-report/**", "test-results/**", "*.tsbuildinfo", ".netlify/**"] },
   js.configs.recommended,
   {
     files: ["vite.config.js", "vitest.config.js"],
