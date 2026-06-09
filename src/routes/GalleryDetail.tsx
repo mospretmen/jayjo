@@ -49,7 +49,7 @@ export default function GalleryDetail() {
         <GalleryPieceList gallery={gallery} />
       </Section>
       <section className="bg-bg-elevated">
-        <div className="container-page grid items-center gap-6 py-16 md:grid-cols-[2fr_1fr]">
+        <div className="container-page grid items-center gap-6 py-10 md:grid-cols-[2fr_1fr] md:py-14">
           <div>
             <p className="eyebrow">Want something custom?</p>
             <h2 className="mt-3 font-display text-3xl">

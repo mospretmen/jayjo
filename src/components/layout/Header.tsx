@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
 import { Heart, ShoppingBag } from "lucide-react";
 import { ThemeToggle } from "@/components/theme/ThemeToggle";
+import { MobileNav } from "@/components/layout/MobileNav";
 import { useFavorites } from "@/store/favorites";
 import { cn } from "@/lib/cn";
 
@@ -100,6 +101,7 @@ export function Header() {
           >
             <ShoppingBag size={18} />
           </Link>
+          <MobileNav links={nav} transparent={transparent} />
         </div>
       </div>
     </header>
