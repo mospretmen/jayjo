@@ -1,0 +1,19 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "target": "ES2022",
+    "lib": ["ES2023"],
+    "types": ["node"],
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "jsx": "preserve",
+    "paths": {
+      "@/shared/*": ["src/shared/*"],
+      "@/catalog/*": ["src/catalog/*"]
+    }
+  },
+  "include": ["netlify/functions/**/*.ts"],
+  "exclude": ["node_modules"]
+}
