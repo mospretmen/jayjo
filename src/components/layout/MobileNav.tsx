@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import * as Dialog from "@radix-ui/react-dialog";
+import { BrandLogo } from "@/components/layout/BrandLogo";
 import { cn } from "@/lib/cn";
 
 interface MobileNavProps {
@@ -42,7 +43,11 @@ export function MobileNav({ links, transparent = false }: MobileNavProps) {
           aria-describedby={undefined}
         >
           <div className="flex items-center justify-between border-b border-border px-5 py-4">
-            <Dialog.Title className="font-display text-xl text-text">Studio JayJo</Dialog.Title>
+            <Dialog.Title asChild>
+              <span className="inline-flex items-center">
+                <BrandLogo sizeClass="h-10 w-10" />
+              </span>
+            </Dialog.Title>
             <Dialog.Close
               aria-label="Close menu"
               className="inline-flex h-9 w-9 items-center justify-center rounded-full text-text-muted outline-none transition hover:bg-bg-elevated hover:text-text focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg"

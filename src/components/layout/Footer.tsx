@@ -4,6 +4,7 @@ import { Instagram } from "lucide-react";
 import { Input } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
 import { XIcon, PinterestIcon } from "@/components/ui/SocialIcon";
+import { BrandLogo } from "@/components/layout/BrandLogo";
 import { validateNewsletter, sanitizeEmail } from "@/lib/validation";
 import { toast } from "sonner";
 
@@ -38,7 +39,9 @@ export function Footer() {
     <footer className="border-t border-border bg-bg-elevated">
       <div className="container-page grid grid-cols-1 gap-12 py-16 md:grid-cols-[2fr_1fr_1fr_1fr]">
         <div className="space-y-4">
-          <p className="font-display text-2xl text-text">Studio JayJo</p>
+          <Link to="/" aria-label="Studio JayJo — home" className="inline-flex items-center">
+            <BrandLogo sizeClass="h-12 w-12" />
+          </Link>
           <p className="max-w-prose text-text-muted">
             Original art, prints, and curated wall galleries — made in warm pigments and quiet
             compositions.
