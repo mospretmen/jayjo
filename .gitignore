@@ -17,9 +17,6 @@ test-results
 .vscode/
 .idea/
 dist-ssr/
-# Generated JS files (from TypeScript compilation)
-src/**/*.js
-tests/**/*.js
 
 # Design reference materials (kept locally only)
 /Colour Palette.pdf
