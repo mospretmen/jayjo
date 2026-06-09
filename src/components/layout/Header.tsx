@@ -35,7 +35,7 @@ export function Header({ onOpenCart }: { onOpenCart: () => void }) {
       className={cn(
         "sticky top-0 z-40 transition-colors duration-300",
         transparent
-          ? "bg-transparent text-bg"
+          ? "bg-text/15 text-bg backdrop-blur"
           : "border-b border-border bg-bg/85 text-text backdrop-blur",
       )}
     >
