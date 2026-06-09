@@ -17,7 +17,7 @@ export function Header({ onOpenCart }: { onOpenCart: () => void }) {
   const favCount = useFavorites((s) => s.slugs.length);
 
   return (
-    <header className="sticky top-0 z-40 border-b border-border bg-bg/70 backdrop-blur-md">
+    <header className="sticky top-0 z-40 bg-transparent backdrop-blur-md">
       <div className="container-page flex h-16 items-center justify-between gap-6">
         <Link to="/" className="font-display text-xl tracking-tight text-text">
           Studio JayJo
