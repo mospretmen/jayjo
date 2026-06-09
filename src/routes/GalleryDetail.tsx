@@ -6,6 +6,7 @@ import { Section } from "@/components/ui/Section";
 import { Button } from "@/components/ui/Button";
 import { GalleryHero } from "@/components/gallery/GalleryHero";
 import { GalleryPieceList } from "@/components/gallery/GalleryPieceList";
+import { BuyGalleryButton } from "@/components/checkout/BuyGalleryButton";
 import { Price } from "@/components/ui/Price";
 import { PageSkeleton } from "@/components/layout/PageSkeleton";
 
@@ -40,9 +41,7 @@ export default function GalleryDetail() {
           {gallery.bundle && (
             <div className="flex items-center gap-4">
               <Price cents={gallery.bundle.bundlePriceCents} className="font-display text-2xl" />
-              <Button disabled aria-disabled title="Bundle checkout launches with Plan 2">
-                Buy the whole gallery
-              </Button>
+              <BuyGalleryButton gallery={gallery} />
             </div>
           )}
         </div>

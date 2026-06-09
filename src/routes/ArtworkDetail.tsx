@@ -5,8 +5,8 @@ import { getCatalog } from "@/catalog";
 import { Section } from "@/components/ui/Section";
 import { Button } from "@/components/ui/Button";
 import { Skeleton } from "@/components/ui/Skeleton";
-import { VariantPicker } from "@/components/product/VariantPicker";
 import { ImageWithBlur } from "@/components/product/ImageWithBlur";
+import { AddToCartButton } from "@/components/checkout/AddToCartButton";
 import { Heart } from "lucide-react";
 import { useFavorites } from "@/store/favorites";
 import { Reveal } from "@/components/motion/Reveal";
@@ -81,11 +81,8 @@ export default function ArtworkDetail() {
             {artwork.story && <p className="text-text-muted">{artwork.story}</p>}
           </div>
           <div className="mt-10 space-y-4">
-            <VariantPicker artwork={artwork} />
-            <div className="flex gap-3">
-              <Button size="lg" disabled aria-disabled title="Cart launches with Plan 2">
-                Add to cart
-              </Button>
+            <div className="flex items-end gap-3">
+              <AddToCartButton artwork={artwork} />
               <button
                 type="button"
                 onClick={() => toggle(artwork.slug)}
