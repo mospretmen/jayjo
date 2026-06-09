@@ -5,7 +5,7 @@ import { db } from "./_lib/db";
 import { sendOrderReceipt } from "./_lib/resend";
 import { AppError, errorResponse, jsonResponse } from "./_lib/errors";
 import { log, newRequestId } from "./_lib/log";
-import { filesAdapter } from "../../src/catalog/adapters/files";
+import { staticAdapter } from "../../src/catalog/adapters/static";
 
 export default async (req: Request, _ctx: Context): Promise<Response> => {
   const requestId = newRequestId();
@@ -75,8 +75,8 @@ async function handleSessionCompleted(session: Stripe.Checkout.Session, requestI
   );
 
   // Resolve catalog metadata for items (to record slugs + variant labels + image URLs)
-  const artworks = await filesAdapter.listArtworks();
-  const galleries = await filesAdapter.listGalleries();
+  const artworks = await staticAdapter.listArtworks();
+  const galleries = await staticAdapter.listGalleries();
 
   const orderRows = (await db()(`SELECT id FROM orders WHERE stripe_session_id = $1`, [session.id])) as { id: string }[];
   const orderId = orderRows[0]?.id;

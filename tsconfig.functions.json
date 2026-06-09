@@ -11,7 +11,9 @@
     "jsx": "preserve",
     "paths": {
       "@/shared/*": ["src/shared/*"],
-      "@/catalog/*": ["src/catalog/*"]
+      "@/catalog/*": ["src/catalog/*"],
+      "@/content/*": ["src/content/*"],
+      "@/lib/*": ["src/lib/*"]
     }
   },
   "include": ["netlify/functions/**/*.ts"],

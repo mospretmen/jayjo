@@ -8,7 +8,7 @@ import { CreateCheckoutRequestSchema } from "../../src/shared/schemas";
 import { resolveCartLines, PricingError } from "./_lib/pricing";
 import { AppError, errorResponse, jsonResponse } from "./_lib/errors";
 import { log, newRequestId } from "./_lib/log";
-import { filesAdapter } from "../../src/catalog/adapters/files";
+import { staticAdapter } from "../../src/catalog/adapters/static";
 
 export default async (req: Request, _ctx: Context): Promise<Response> => {
   const requestId = newRequestId();
@@ -18,8 +18,8 @@ export default async (req: Request, _ctx: Context): Promise<Response> => {
     const env = getServerEnv();
     const body = await parseJson(req, CreateCheckoutRequestSchema);
 
-    const artworks = await filesAdapter.listArtworks();
-    const galleries = await filesAdapter.listGalleries();
+    const artworks = await staticAdapter.listArtworks();
+    const galleries = await staticAdapter.listGalleries();
 
     let resolved;
     try {
