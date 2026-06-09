@@ -37,9 +37,9 @@ export function MobileNav({ links, transparent = false }: MobileNavProps) {
       </Dialog.Trigger>
 
       <Dialog.Portal>
-        <Dialog.Overlay className="fixed inset-0 z-50 bg-text/40 backdrop-blur-sm data-[state=open]:animate-in data-[state=open]:fade-in" />
+        <Dialog.Overlay className="fixed inset-0 z-50 bg-text/50 backdrop-blur-md data-[state=open]:animate-in data-[state=open]:fade-in" />
         <Dialog.Content
-          className="fixed right-0 top-0 z-50 flex h-full w-full max-w-xs flex-col border-l border-border bg-bg/90 shadow-[var(--shadow-card-hover)] backdrop-blur-lg data-[state=open]:animate-in data-[state=open]:slide-in-from-right"
+          className="fixed right-0 top-0 z-50 flex h-full w-full max-w-xs flex-col border-l border-border bg-bg/55 shadow-[var(--shadow-card-hover)] backdrop-blur-[40px] backdrop-saturate-150 data-[state=open]:animate-in data-[state=open]:slide-in-from-right"
           aria-describedby={undefined}
         >
           <div className="flex items-center justify-between border-b border-border px-5 py-4">
