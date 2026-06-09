@@ -6,17 +6,19 @@ export default {
   theme: {
     extend: {
       colors: {
-        bg: "var(--color-bg)",
-        "bg-elevated": "var(--color-bg-elevated)",
-        text: "var(--color-text)",
-        "text-muted": "var(--color-text-muted)",
-        accent: "var(--color-accent)",
-        "accent-soft": "var(--color-accent-soft)",
-        fig: "var(--color-fig)",
-        olive: "var(--color-olive)",
-        mustard: "var(--color-mustard)",
-        burnt: "var(--color-burnt)",
-        border: "var(--color-border)",
+        // Each token is an RGB triple defined in tokens.css; <alpha-value>
+        // lets Tailwind compose opacity modifiers (e.g. bg-bg/80).
+        bg: "rgb(var(--color-bg-rgb) / <alpha-value>)",
+        "bg-elevated": "rgb(var(--color-bg-elevated-rgb) / <alpha-value>)",
+        text: "rgb(var(--color-text-rgb) / <alpha-value>)",
+        "text-muted": "rgb(var(--color-text-muted-rgb) / <alpha-value>)",
+        accent: "rgb(var(--color-accent-rgb) / <alpha-value>)",
+        "accent-soft": "rgb(var(--color-accent-soft-rgb) / <alpha-value>)",
+        fig: "rgb(var(--color-fig-rgb) / <alpha-value>)",
+        olive: "rgb(var(--color-olive-rgb) / <alpha-value>)",
+        mustard: "rgb(var(--color-mustard-rgb) / <alpha-value>)",
+        burnt: "rgb(var(--color-burnt-rgb) / <alpha-value>)",
+        border: "rgb(var(--color-border-rgb) / 0.12)",
       },
       fontFamily: {
         display: ['"Cormorant Garamond Variable"', "ui-serif", "Georgia", "serif"],

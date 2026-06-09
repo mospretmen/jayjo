@@ -13,7 +13,7 @@ export function Section({
   const Component = Tag as keyof JSX.IntrinsicElements;
   return (
     // @ts-expect-error — polymorphic element typing
-    <Component className={cn("container-page py-16 md:py-24", className)} {...props}>
+    <Component className={cn("container-page py-10 md:py-14", className)} {...props}>
       {children}
     </Component>
   );

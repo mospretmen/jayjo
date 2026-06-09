@@ -63,6 +63,8 @@ export default [
         HTMLSpanElement: "readonly",
         HTMLParagraphElement: "readonly",
         HTMLHeadingElement: "readonly",
+        SVGSVGElement: "readonly",
+        SVGElement: "readonly",
       },
     },
     plugins: {

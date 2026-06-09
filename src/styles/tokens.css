@@ -5,45 +5,75 @@
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+/*
+ * Each colour is defined as an RGB triple (space-separated, no rgb()) so
+ * Tailwind's alpha modifier can compose it via rgb(var(--…) / <alpha-value>).
+ * The composed --color-X variables stay available for raw CSS that needs the
+ * full opaque colour (e.g. inline styles, custom gradients).
+ */
 :root,
 :root[data-theme="light"] {
-  --color-bg:           #F2EBDC; /* Soft Parchment */
-  --color-bg-elevated:  #E8E2D3; /* Bone */
-  --color-text:         #2E1F12; /* Cocoa / Walnut */
-  --color-text-muted:   #756751; /* Warm Greige — AA on bg (4.64:1) */
-  --color-accent:       #A6541F; /* Cognac Leather */
-  --color-accent-soft:  #B57C82; /* Faded Fig */
-  --color-fig:          #63242B; /* Deep Fig — also used as danger/error tone */
-  --color-olive:        #7E9268; /* Olive Moss */
-  --color-mustard:      #C97B10; /* Spiced Mustard */
-  --color-burnt:        #8D3A2B; /* Burnt Umber */
-  --color-border:       rgba(46, 31, 18, 0.12);
+  --color-bg-rgb:           242 235 220; /* Soft Parchment */
+  --color-bg-elevated-rgb:  232 226 211; /* Bone */
+  --color-text-rgb:           46  31  18; /* Cocoa / Walnut */
+  --color-text-muted-rgb:    117 103  81; /* Warm Greige — AA on bg (4.64:1) */
+  --color-accent-rgb:        166  84  31; /* Cognac Leather */
+  --color-accent-soft-rgb:   181 124 130; /* Faded Fig */
+  --color-fig-rgb:            99  36  43; /* Deep Fig */
+  --color-olive-rgb:         126 146 104; /* Olive Moss */
+  --color-mustard-rgb:       201 123  16; /* Spiced Mustard */
+  --color-burnt-rgb:         141  58  43; /* Burnt Umber */
+  --color-border-rgb:         46  31  18; /* combined with alpha 0.12 by default */
 
-  --color-shimmer:      rgba(46, 31, 18, 0.08);  /* warm shimmer over light bg */
+  --color-bg:           rgb(var(--color-bg-rgb));
+  --color-bg-elevated:  rgb(var(--color-bg-elevated-rgb));
+  --color-text:         rgb(var(--color-text-rgb));
+  --color-text-muted:   rgb(var(--color-text-muted-rgb));
+  --color-accent:       rgb(var(--color-accent-rgb));
+  --color-accent-soft:  rgb(var(--color-accent-soft-rgb));
+  --color-fig:          rgb(var(--color-fig-rgb));
+  --color-olive:        rgb(var(--color-olive-rgb));
+  --color-mustard:      rgb(var(--color-mustard-rgb));
+  --color-burnt:        rgb(var(--color-burnt-rgb));
+  --color-border:       rgb(var(--color-border-rgb) / 0.12);
 
-  --shadow-card:        0 1px 2px rgba(46, 31, 18, 0.06), 0 8px 24px rgba(46, 31, 18, 0.08);
-  --shadow-card-hover:  0 4px 8px rgba(46, 31, 18, 0.10), 0 16px 36px rgba(46, 31, 18, 0.14);
+  --color-shimmer:      rgb(var(--color-text-rgb) / 0.08);
+
+  --shadow-card:        0 1px 2px rgb(var(--color-text-rgb) / 0.06), 0 8px 24px rgb(var(--color-text-rgb) / 0.08);
+  --shadow-card-hover:  0 4px 8px rgb(var(--color-text-rgb) / 0.10), 0 16px 36px rgb(var(--color-text-rgb) / 0.14);
 
   color-scheme: light;
 }
 
 :root[data-theme="dark"] {
-  --color-bg:           #1A140E;          /* deep warm brown — never true black */
-  --color-bg-elevated:  #241A12;
-  --color-text:         #F2EBDC;          /* Soft Parchment becomes text in dark */
-  --color-text-muted:   #C9BFA8;          /* lifted from #A89A86 for AA on dark */
-  --color-accent:       #C77A3E;          /* Cognac lifted for dark-bg contrast */
-  --color-accent-soft:  #C68C92;          /* Faded Fig, slightly lifted */
-  --color-fig:          #8C3A41;
-  --color-olive:        #9DB387;
-  --color-mustard:      #E08B1F;
-  --color-burnt:        #B45844;
-  --color-border:       rgba(242, 235, 220, 0.12);
+  --color-bg-rgb:           26  20  14; /* deep warm brown — never true black */
+  --color-bg-elevated-rgb:  36  26  18;
+  --color-text-rgb:        242 235 220; /* Soft Parchment becomes text in dark */
+  --color-text-muted-rgb:  201 191 168; /* lifted greige for AA on dark */
+  --color-accent-rgb:      199 122  62; /* Cognac lifted for dark-bg contrast */
+  --color-accent-soft-rgb: 198 140 146; /* Faded Fig, slightly lifted */
+  --color-fig-rgb:         140  58  65;
+  --color-olive-rgb:       157 179 135;
+  --color-mustard-rgb:     224 139  31;
+  --color-burnt-rgb:       180  88  68;
+  --color-border-rgb:      242 235 220; /* combined with alpha 0.12 */
 
-  --color-shimmer:      rgba(242, 235, 220, 0.08);
+  --color-bg:           rgb(var(--color-bg-rgb));
+  --color-bg-elevated:  rgb(var(--color-bg-elevated-rgb));
+  --color-text:         rgb(var(--color-text-rgb));
+  --color-text-muted:   rgb(var(--color-text-muted-rgb));
+  --color-accent:       rgb(var(--color-accent-rgb));
+  --color-accent-soft:  rgb(var(--color-accent-soft-rgb));
+  --color-fig:          rgb(var(--color-fig-rgb));
+  --color-olive:        rgb(var(--color-olive-rgb));
+  --color-mustard:      rgb(var(--color-mustard-rgb));
+  --color-burnt:        rgb(var(--color-burnt-rgb));
+  --color-border:       rgb(var(--color-border-rgb) / 0.12);
 
-  --shadow-card:        0 1px 2px rgba(0, 0, 0, 0.4), 0 8px 24px rgba(0, 0, 0, 0.4);
-  --shadow-card-hover:  0 4px 8px rgba(0, 0, 0, 0.5), 0 16px 36px rgba(0, 0, 0, 0.5);
+  --color-shimmer:      rgb(var(--color-text-rgb) / 0.08);
+
+  --shadow-card:        0 1px 2px rgb(0 0 0 / 0.4), 0 8px 24px rgb(0 0 0 / 0.4);
+  --shadow-card-hover:  0 4px 8px rgb(0 0 0 / 0.5), 0 16px 36px rgb(0 0 0 / 0.5);
 
   color-scheme: dark;
 }

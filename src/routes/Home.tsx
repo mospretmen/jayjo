@@ -3,7 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import type { Artwork, Gallery } from "@/catalog/types";
 import { getCatalog } from "@/catalog";
 import { Button } from "@/components/ui/Button";
-import { ArtworkGrid } from "@/components/product/ArtworkGrid";
+import { ArtworkCard } from "@/components/product/ArtworkCard";
+import { ArtworkCardSkeleton } from "@/components/product/ArtworkCardSkeleton";
 import { GalleryCard } from "@/components/gallery/GalleryCard";
 import { GalleryCardSkeleton } from "@/components/gallery/GalleryCardSkeleton";
 import { Reveal } from "@/components/motion/Reveal";
@@ -28,8 +29,8 @@ export default function Home() {
 
   return (
     <>
-      {/* HERO — full-bleed editorial */}
-      <section className="relative h-[88vh] min-h-[560px] w-full overflow-hidden">
+      {/* HERO — full-bleed editorial; pulled up under the transparent sticky header */}
+      <section className="relative -mt-16 h-[100svh] min-h-[640px] w-full overflow-hidden">
         <img
           src="/hero/hero-gallery-wall.jpg"
           alt="A curated gallery wall in a warm, sunlit interior"
@@ -87,23 +88,47 @@ export default function Home() {
         </div>
       </section>
 
-      {/* FEATURED GRID */}
-      <section className="container-page py-16 md:py-24">
-        <Reveal>
-          <div className="flex flex-wrap items-end justify-between gap-4">
-            <div className="max-w-xl">
-              <p className="eyebrow">New from the studio</p>
-              <h2 className="mt-3 font-display text-3xl text-text md:text-4xl">
-                Latest works.
-              </h2>
+      {/* LATEST WORKS — smooth horizontal scroll */}
+      <section className="py-14 md:py-20">
+        <div className="container-page">
+          <Reveal>
+            <div className="flex flex-wrap items-end justify-between gap-4">
+              <div className="max-w-xl">
+                <p className="eyebrow">New from the studio</p>
+                <h2 className="mt-3 font-display text-3xl text-text md:text-4xl">
+                  Latest works.
+                </h2>
+              </div>
+              <Link to="/shop" className="text-sm text-text underline-offset-4 hover:underline">
+                See everything →
+              </Link>
             </div>
-            <Link to="/shop" className="text-sm text-text underline-offset-4 hover:underline">
-              See everything →
-            </Link>
-          </div>
-        </Reveal>
+          </Reveal>
+        </div>
+
         <div className="mt-10">
-          <ArtworkGrid artworks={art ?? []} loading={art === null} />
+          <div
+            className="flex snap-x snap-mandatory gap-6 overflow-x-auto scroll-smooth pb-6 [scrollbar-color:rgb(var(--color-text-rgb)/0.2)_transparent] [scrollbar-width:thin] sm:gap-8"
+            style={{
+              paddingLeft: "max(1.5rem, calc((100vw - 80rem) / 2 + 1.5rem))",
+              paddingRight: "max(1.5rem, calc((100vw - 80rem) / 2 + 1.5rem))",
+            }}
+          >
+            {art
+              ? art.map((a, i) => (
+                  <div
+                    key={a.slug}
+                    className="w-[72%] shrink-0 snap-start sm:w-[44%] md:w-[34%] lg:w-[26%] xl:w-[22%]"
+                  >
+                    <ArtworkCard artwork={a} priority={i < 2} />
+                  </div>
+                ))
+              : Array.from({ length: 5 }).map((_, i) => (
+                  <div key={i} className="w-[72%] shrink-0 sm:w-[44%] md:w-[34%] lg:w-[26%] xl:w-[22%]">
+                    <ArtworkCardSkeleton />
+                  </div>
+                ))}
+          </div>
         </div>
       </section>
 

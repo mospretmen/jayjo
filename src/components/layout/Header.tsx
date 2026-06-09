@@ -67,7 +67,7 @@ export function Header() {
           ))}
         </nav>
         <div className="flex items-center gap-1">
-          <ThemeToggle />
+          <ThemeToggle transparent={transparent} />
           <Link
             to="/favorites"
             aria-label={`Favorites${favCount ? ` (${favCount})` : ""}`}

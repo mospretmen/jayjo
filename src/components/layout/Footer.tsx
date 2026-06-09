@@ -1,10 +1,39 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Instagram, X as XIcon } from "lucide-react";
+import { Instagram } from "lucide-react";
 import { Input } from "@/components/ui/Input";
 import { Button } from "@/components/ui/Button";
+import { XIcon, PinterestIcon } from "@/components/ui/SocialIcon";
+import { validateNewsletter, sanitizeEmail } from "@/lib/validation";
 import { toast } from "sonner";
 
 export function Footer() {
+  const [error, setError] = useState<string | undefined>(undefined);
+  const [submitting, setSubmitting] = useState(false);
+
+  async function onSubscribe(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    const data = new FormData(e.currentTarget);
+    const raw = String(data.get("email") ?? "");
+    const err = validateNewsletter(raw);
+    setError(err);
+    if (err) return;
+    setSubmitting(true);
+    try {
+      // Backend wires in Plan 4; simulate async work for UX
+      await new Promise((resolve) => setTimeout(resolve, 400));
+      toast.success("Thanks for joining. We'll be in touch.");
+      const formEl = e.currentTarget as HTMLFormElement;
+      formEl.reset();
+      // Cast to expose dataset/etc. without losing types
+      void sanitizeEmail(raw);
+    } catch {
+      toast.error("Couldn't subscribe right now. Please try again later.");
+    } finally {
+      setSubmitting(false);
+    }
+  }
+
   return (
     <footer className="border-t border-border bg-bg-elevated">
       <div className="container-page grid grid-cols-1 gap-12 py-16 md:grid-cols-[2fr_1fr_1fr_1fr]">
@@ -14,22 +43,24 @@ export function Footer() {
             Original art, prints, and curated wall galleries — made in warm pigments and quiet
             compositions.
           </p>
-          <form
-            onSubmit={(e) => {
-              e.preventDefault();
-              const data = new FormData(e.currentTarget);
-              const email = String(data.get("email") ?? "");
-              if (!email) return;
-              // Newsletter backend wires in Plan 4
-              toast.success("Thanks for joining. We'll be in touch.");
-              (e.currentTarget as HTMLFormElement).reset();
-            }}
-            className="flex max-w-sm gap-2"
-          >
-            <Input name="email" type="email" required placeholder="you@studio.com" aria-label="Email" />
-            <Button type="submit" variant="primary" size="md">
-              Join
-            </Button>
+          <form onSubmit={onSubscribe} noValidate className="flex max-w-sm flex-col gap-2">
+            <div className="flex gap-2">
+              <Input
+                name="email"
+                type="email"
+                required
+                maxLength={254}
+                autoComplete="email"
+                inputMode="email"
+                placeholder="you@studio.com"
+                aria-label="Email"
+                error={error}
+                onChange={() => error && setError(undefined)}
+              />
+              <Button type="submit" variant="primary" size="md" disabled={submitting}>
+                {submitting ? "…" : "Join"}
+              </Button>
+            </div>
           </form>
         </div>
         <nav aria-label="Shop">
@@ -51,20 +82,38 @@ export function Footer() {
         </nav>
         <nav aria-label="Follow">
           <p className="eyebrow mb-3">Follow</p>
-          <ul className="space-y-2 text-text-muted">
+          <ul className="space-y-2.5 text-text-muted">
             <li>
-              <a href="https://instagram.com/studiojayjo" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 hover:text-text">
+              <a
+                href="https://instagram.com/studiojayjo"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2.5 hover:text-text"
+                aria-label="Instagram"
+              >
                 <Instagram size={16} /> Instagram
               </a>
             </li>
             <li>
-              <a href="https://pinterest.com/studiojayjo" target="_blank" rel="noreferrer" className="hover:text-text">
-                Pinterest
+              <a
+                href="https://pinterest.com/studiojayjo"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2.5 hover:text-text"
+                aria-label="Pinterest"
+              >
+                <PinterestIcon className="text-base" /> Pinterest
               </a>
             </li>
             <li>
-              <a href="https://x.com/studiojayjo" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 hover:text-text">
-                <XIcon size={14} /> X
+              <a
+                href="https://x.com/studiojayjo"
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2.5 hover:text-text"
+                aria-label="X (Twitter)"
+              >
+                <XIcon className="text-sm" /> X
               </a>
             </li>
           </ul>
