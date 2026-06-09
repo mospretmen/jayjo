@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { Link, NavLink, useLocation } from "react-router-dom";
-import { Heart, ShoppingBag } from "lucide-react";
+import { Heart } from "lucide-react";
 import { ThemeToggle } from "@/components/theme/ThemeToggle";
 import { MobileNav } from "@/components/layout/MobileNav";
+import { CartButton } from "@/components/checkout/CartButton";
 import { useFavorites } from "@/store/favorites";
 import { cn } from "@/lib/cn";
 
@@ -25,7 +26,7 @@ function useTransparentHeader() {
   return location.pathname === "/" && atTop;
 }
 
-export function Header() {
+export function Header({ onOpenCart }: { onOpenCart: () => void }) {
   const favCount = useFavorites((s) => s.slugs.length);
   const transparent = useTransparentHeader();
 
@@ -89,18 +90,7 @@ export function Header() {
               </span>
             )}
           </Link>
-          <Link
-            to="/cart"
-            aria-label="Cart"
-            className={cn(
-              "relative inline-flex h-10 w-10 items-center justify-center rounded-full outline-none transition focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2",
-              transparent
-                ? "text-bg/85 hover:bg-bg/15 hover:text-bg focus-visible:ring-offset-transparent"
-                : "text-text-muted hover:bg-bg-elevated hover:text-text focus-visible:ring-offset-bg",
-            )}
-          >
-            <ShoppingBag size={18} />
-          </Link>
+          <CartButton onClick={onOpenCart} transparent={transparent} />
           <MobileNav links={nav} transparent={transparent} />
         </div>
       </div>
