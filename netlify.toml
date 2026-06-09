@@ -10,13 +10,8 @@
   node_bundler = "esbuild"
   external_node_modules = ["@neondatabase/serverless"]
 
-# SPA fallback — api redirects MUST come first
-[[redirects]]
-  from = "/api/*"
-  to = "/.netlify/functions/:splat"
-  status = 200
-  force = true
-
+# Netlify Functions v2 register their own /api/* paths via `export const config.path`.
+# Only the SPA fallback is needed here.
 [[redirects]]
   from = "/*"
   to = "/index.html"
