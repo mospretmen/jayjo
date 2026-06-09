@@ -124,13 +124,13 @@ export default function Home() {
               ? art.map((a, i) => (
                   <div
                     key={a.slug}
-                    className="w-[72%] shrink-0 snap-start sm:w-[44%] md:w-[34%] lg:w-[26%] xl:w-[22%]"
+                    className="w-[85%] shrink-0 snap-start sm:w-[44%] md:w-[34%] lg:w-[26%] xl:w-[22%]"
                   >
                     <ArtworkCard artwork={a} priority={i < 2} />
                   </div>
                 ))
               : Array.from({ length: 5 }).map((_, i) => (
-                  <div key={i} className="w-[72%] shrink-0 sm:w-[44%] md:w-[34%] lg:w-[26%] xl:w-[22%]">
+                  <div key={i} className="w-[85%] shrink-0 sm:w-[44%] md:w-[34%] lg:w-[26%] xl:w-[22%]">
                     <ArtworkCardSkeleton />
                   </div>
                 ))}

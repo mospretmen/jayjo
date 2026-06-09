@@ -43,9 +43,9 @@ export function CartDrawer({ open, onOpenChange }: CartDrawerProps) {
   return (
     <Dialog.Root open={open} onOpenChange={onOpenChange}>
       <Dialog.Portal>
-        <Dialog.Overlay className="fixed inset-0 z-50 bg-text/50 backdrop-blur-md data-[state=open]:animate-in data-[state=open]:fade-in" />
+        <Dialog.Overlay className="fixed inset-0 z-50 bg-text/45 data-[state=open]:animate-in data-[state=open]:fade-in" />
         <Dialog.Content
-          className="fixed right-0 top-0 z-50 flex h-full w-full max-w-md flex-col border-l border-border bg-bg-elevated/70 shadow-[0_0_60px_-12px_rgb(var(--color-text-rgb)/0.4)] backdrop-blur-[40px] backdrop-saturate-150 data-[state=open]:animate-in data-[state=open]:slide-in-from-right"
+          className="fixed right-0 top-0 z-50 flex h-full w-full max-w-md flex-col border-l border-border bg-bg-elevated shadow-[-24px_0_48px_-12px_rgb(var(--color-text-rgb)/0.25)] data-[state=open]:animate-in data-[state=open]:slide-in-from-right"
           aria-describedby={undefined}
         >
           <div className="flex items-center justify-between border-b border-border px-6 py-4">

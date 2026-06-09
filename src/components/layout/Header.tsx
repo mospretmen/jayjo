@@ -36,7 +36,7 @@ export function Header({ onOpenCart }: { onOpenCart: () => void }) {
         "sticky top-0 z-40 transition-colors duration-300",
         transparent
           ? "bg-transparent text-bg"
-          : "border-b border-border bg-bg/70 text-text backdrop-blur-2xl backdrop-saturate-150",
+          : "border-b border-border bg-bg/85 text-text backdrop-blur",
       )}
     >
       <div className="container-page flex h-16 items-center justify-between gap-6">
