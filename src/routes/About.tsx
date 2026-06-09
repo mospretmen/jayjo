@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { aboutPage } from "@/content/pages/about";
 import { Reveal } from "@/components/motion/Reveal";
+import { BrandLogo } from "@/components/layout/BrandLogo";
 
 export default function About() {
   return (
@@ -23,12 +24,15 @@ export default function About() {
         </Reveal>
 
         <div className="space-y-4 text-text md:space-y-5">
-          <div>
-            <p className="eyebrow">{aboutPage.eyebrow}</p>
-            <h1 className="mt-1 font-display text-3xl text-text md:text-4xl lg:text-5xl">
-              {aboutPage.title}
-            </h1>
-          </div>
+          <Reveal>
+            <div>
+              <BrandLogo sizeClass="h-14 w-14 md:h-16 md:w-16" className="mb-4" />
+              <p className="eyebrow">{aboutPage.eyebrow}</p>
+              <h1 className="mt-1 font-display text-3xl text-text md:text-4xl lg:text-5xl">
+                {aboutPage.title}
+              </h1>
+            </div>
+          </Reveal>
 
           {aboutPage.body.map((p, i) => (
             <Reveal key={i} delay={0.06 * i}>
