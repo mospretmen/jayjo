@@ -37,8 +37,8 @@ export function Footer() {
 
   return (
     <footer className="border-t border-border bg-bg-elevated">
-      <div className="container-page grid grid-cols-1 gap-12 py-16 md:grid-cols-[2fr_1fr_1fr_1fr]">
-        <div className="space-y-4">
+      <div className="container-page grid grid-cols-1 gap-8 py-10 sm:grid-cols-2 sm:gap-x-8 sm:gap-y-10 sm:py-12 md:gap-12 md:py-16 lg:grid-cols-[2fr_1fr_1fr_1fr]">
+        <div className="space-y-4 sm:col-span-2 lg:col-span-1">
           <Link
             to="/"
             aria-label="Studio JayJo — home"
@@ -128,7 +128,7 @@ export function Footer() {
         </nav>
       </div>
       <div className="border-t border-border">
-        <div className="container-page flex flex-col gap-2 py-6 text-xs text-text-muted md:flex-row md:justify-between">
+        <div className="container-page flex flex-col items-start gap-1 py-5 text-xs text-text-muted sm:flex-row sm:items-center sm:justify-between sm:py-6">
           <p>© {new Date().getFullYear()} Studio JayJo</p>
           <p>Made with warm pigments.</p>
         </div>
